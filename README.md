@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# متجر الزغوي - ElZaghwy Shop
 
-## Getting Started
+متجر إلكتروني لبيع منتجات الطيور واللحوم الطازجة
 
-First, run the development server:
+## المميزات
+
+- 🛒 **سلة تسوق**: إضافة المنتجات والعروض للسلة مع حفظها في Local Storage
+- 👤 **بيانات العميل**: حفظ بيانات العميل تلقائياً للطلبات القادمة
+- 📦 **تتبع الطلبات**: تتبع حالة الطلب باستخدام رقم الطلب
+- 🚚 **حساب التوصيل**: حساب تلقائي لرسوم التوصيل حسب المنطقة
+- 📱 **تصميم متجاوب**: يعمل على جميع الأجهزة
+- 🌐 **واجهة عربية**: واجهة كاملة باللغة العربية
+
+## التقنيات المستخدمة
+
+- **Next.js 16** - إطار عمل React
+- **TypeScript** - للكتابة الآمنة
+- **Tailwind CSS** - للتصميم
+- **Zustand** - لإدارة الحالة
+- **Local Storage** - لحفظ البيانات محلياً
+
+## البنية
+
+```
+elzaghwy-shop/
+├── app/                    # صفحات التطبيق
+│   ├── page.tsx           # الصفحة الرئيسية
+│   ├── products/          # صفحة المنتجات
+│   ├── offers/            # صفحة العروض
+│   ├── cart/              # صفحة السلة
+│   ├── checkout/          # صفحة إتمام الطلب
+│   ├── order-success/     # صفحة نجاح الطلب
+│   └── track-order/       # صفحة تتبع الطلب
+├── components/            # المكونات
+│   ├── Header.tsx         # الهيدر
+│   ├── Footer.tsx         # الفوتر
+│   ├── ProductCard.tsx    # بطاقة المنتج
+│   └── OfferCard.tsx      # بطاقة العرض
+├── lib/                   # المكتبات والدوال
+│   ├── types.ts          # أنواع TypeScript
+│   ├── api.ts            # دوال API
+│   └── localStorage.ts   # دوال Local Storage
+└── store/                # إدارة الحالة
+    └── cartStore.ts      # متجر السلة
+```
+
+## التشغيل
+
+### 1. تثبيت المكتبات
+
+```bash
+npm install
+```
+
+### 2. إعداد البيئة
+
+تأكد من وجود ملف `.env.local` مع الإعدادات التالية:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+### 3. تشغيل الباك إند
+
+تأكد من تشغيل الباك إند أولاً:
+
+```bash
+cd ../ElZaghwy-backend
+npm run dev
+```
+
+### 4. تشغيل المتجر
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+افتح المتصفح على [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## الصفحات
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### الصفحة الرئيسية `/`
 
-## Learn More
+- Hero بسيط مع صورة الطبيعة
+- مميزات الخدمة
+- عرض العروض المميزة
+- عرض المنتجات المميزة
 
-To learn more about Next.js, take a look at the following resources:
+### صفحة المنتجات `/products`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- عرض جميع المنتجات
+- إضافة للسلة مع تحديد الكمية
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### صفحة العروض `/offers`
 
-## Deploy on Vercel
+- عرض جميع العروض الخاصة
+- عرض محتويات كل عرض
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### صفحة السلة `/cart`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- عرض المنتجات في السلة
+- التحكم في الكميات
+- حذف المنتجات
+- عرض المجموع
+
+### صفحة إتمام الطلب `/checkout`
+
+- نموذج بيانات العميل
+- اختيار المنطقة
+- حساب رسوم التوصيل
+- ملخص الطلب
+
+### صفحة نجاح الطلب `/order-success`
+
+- عرض رقم الطلب
+- إمكانية نسخ الرقم
+- رابط لتتبع الطلب
+
+### صفحة تتبع الطلب `/track-order`
+
+- البحث برقم الطلب
+- عرض حالة الطلب
+- عرض تفاصيل الطلب
+- عرض الطلبات السابقة
+
+## Local Storage
+
+يتم حفظ البيانات التالية في Local Storage:
+
+- `elzaghwy_cart`: السلة
+- `elzaghwy_customer`: بيانات العميل
+- `elzaghwy_orders`: أرقام الطلبات السابقة (آخر 10 طلبات)
+
+## ملاحظات
+
+- لا توجد صفحات تستخدم `"use client"` في المستوى الأساسي
+- جميع المكونات التفاعلية (Header, ProductCard, OfferCard, Cart, Checkout, etc.) تستخدم `"use client"`
+- الصفحات الرئيسية (page.tsx) هي Server Components
+- التصميم بسيط وسهل الاستخدام للفئة المستهدفة
