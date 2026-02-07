@@ -137,3 +137,4 @@ npm run dev
 - جميع المكونات التفاعلية (Header, ProductCard, OfferCard, Cart, Checkout, etc.) تستخدم `"use client"`
 - الصفحات الرئيسية (page.tsx) هي Server Components
 - التصميم بسيط وسهل الاستخدام للفئة المستهدفة
+"# elzaghwy"  "# elzaghwy" 

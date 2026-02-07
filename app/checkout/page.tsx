@@ -10,16 +10,7 @@ import {
   addOrderNumber,
 } from "@/lib/localStorage";
 import { Area } from "@/lib/types";
-import {
-  ShoppingCart,
-  User,
-  MapPin,
-  Phone,
-  Home,
-  Loader2,
-  Copy,
-  CheckCircle,
-} from "lucide-react";
+import { ShoppingCart, User, MapPin, Phone, Home, Loader2 } from "lucide-react";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -28,8 +19,6 @@ export default function CheckoutPage() {
   const [areas, setAreas] = useState<Area[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-  const [orderNumber, setOrderNumber] = useState("");
 
   // بيانات العميل
   const [formData, setFormData] = useState({
@@ -120,15 +109,11 @@ export default function CheckoutPage() {
       // حفظ رقم الطلب
       addOrderNumber(response.orderNumber);
 
-      // حفظ رقم الطلب في الـ state
-      setOrderNumber(response.orderNumber);
-
       // مسح السلة
       clearCart();
 
-      // إظهار الـ dialog
-      setShowSuccessDialog(true);
-      setLoading(false);
+      // التوجيه لصفحة الـ cart مع رقم الطلب
+      router.push(`/cart?success=true&orderNumber=${response.orderNumber}`);
     } catch (err: any) {
       setError(err.message || "حدث خطأ أثناء إنشاء الطلب");
       setLoading(false);
@@ -324,69 +309,6 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
-
-      {/* Success Dialog */}
-      {showSuccessDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-2xl max-w-md w-full p-8 animate-fadeIn">
-            <div className="text-center">
-              {/* Success Icon */}
-              <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <CheckCircle className="w-10 h-10 text-green-600" />
-              </div>
-
-              {/* Title */}
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                تم إرسال طلبك بنجاح!
-              </h2>
-              <p className="text-gray-600 mb-6">
-                شكراً لك! سيتم التواصل معك قريباً
-              </p>
-
-              {/* Order Number */}
-              <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                <p className="text-sm text-gray-600 mb-2">رقم الطلب:</p>
-                <div className="flex items-center justify-center gap-2">
-                  <code className="text-2xl font-bold text-green-600 font-mono">
-                    {orderNumber}
-                  </code>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(orderNumber);
-                      alert("تم نسخ رقم الطلب!");
-                    }}
-                    className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
-                    title="نسخ رقم الطلب"
-                  >
-                    <Copy className="w-5 h-5 text-gray-600" />
-                  </button>
-                </div>
-                <p className="text-xs text-gray-500 mt-2">
-                  احتفظ برقم الطلب لتتبع حالته
-                </p>
-              </div>
-
-              {/* Actions */}
-              <div className="flex flex-col gap-3">
-                <button
-                  onClick={() =>
-                    router.push(`/track-order?orderNumber=${orderNumber}`)
-                  }
-                  className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold transition-colors"
-                >
-                  تتبع الطلب
-                </button>
-                <button
-                  onClick={() => router.push("/")}
-                  className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg font-bold transition-colors"
-                >
-                  العودة للرئيسية
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
