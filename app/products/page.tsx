@@ -7,6 +7,9 @@ export const metadata = {
   description: "تصفح جميع منتجات الطيور واللحوم الطازجة في متجر الزغوي",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function ProductsPage() {
   let products = [];
 

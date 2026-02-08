@@ -5,6 +5,9 @@ import ProductCard from "@/components/ProductCard";
 import OfferCard from "@/components/OfferCard";
 import { ArrowLeft, ShoppingBag, Tag, Truck } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Home() {
   let products = [];
   let offers = [];
