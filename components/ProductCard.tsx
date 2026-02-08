@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Product } from "@/lib/types";
 import { useCartStore } from "@/store/cartStore";
-import { ShoppingCart, Check } from "lucide-react";
+import { ShoppingCart, Check, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 
 interface ProductCardProps {
@@ -31,67 +31,79 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+    <div className="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full">
       {/* صورة المنتج */}
-      <div className="relative h-48 bg-gray-100">
+      <div className="relative h-48 overflow-hidden">
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover"
+          className="object-cover group-hover:scale-110 transition-transform duration-500"
         />
+
+        {/* حالة التوفر */}
         {!product.inStock && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <span className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold">
-              غير متوفر
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center z-10">
+            <span className="bg-white text-red-600 px-5 py-1.5 rounded-full font-black shadow-xl transform -rotate-12 border-2 border-red-600">
+              غير متوفر حالياً
             </span>
           </div>
         )}
       </div>
 
       {/* معلومات المنتج */}
-      <div className="p-4">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h3>
-
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-2xl font-bold text-green-600">
-            {product.price} جنيه
+      <div className="p-5 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-lg font-black text-gray-800 line-clamp-1">
+            {product.name}
+          </h3>
+          <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-md font-bold">
+            {product.unit}
           </span>
-          <span className="text-gray-600 text-sm">/{product.unit}</span>
+        </div>
+
+        {/* السعر */}
+        <div className="mb-5">
+          <span className="text-2xl font-black text-green-600 flex items-baseline gap-1">
+            {product.price}
+            <span className="text-sm font-medium">جنيه</span>
+          </span>
         </div>
 
         {product.inStock && (
-          <div className="space-y-3">
-            {/* الكمية */}
-            <div className="flex items-center gap-2">
-              <label className="text-sm font-medium text-gray-700">
+          <div className="mt-auto space-y-4">
+            {/* التحكم في الكمية */}
+            <div className="flex items-center justify-between bg-gray-50 rounded-xl p-2 border border-gray-100">
+              <span className="text-sm font-bold text-gray-500 mr-2">
                 الكمية:
-              </label>
-              <div className="flex items-center gap-2">
+              </span>
+              <div className="flex items-center gap-3">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-8 h-8 bg-gray-200 hover:bg-gray-300 rounded-lg font-bold transition-colors"
+                  className="w-8 h-8 flex items-center justify-center bg-white rounded-lg text-gray-600 hover:text-red-500 transition-colors shadow-sm border border-gray-100"
                 >
-                  -
+                  <Minus className="w-4 h-4" />
                 </button>
-                <span className="w-12 text-center font-bold">{quantity}</span>
+                <span className="w-6 text-center font-black text-gray-800">
+                  {quantity}
+                </span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-8 h-8 bg-gray-200 hover:bg-gray-300 rounded-lg font-bold transition-colors"
+                  className="w-8 h-8 flex items-center justify-center bg-white rounded-lg text-gray-600 hover:text-green-600 transition-colors shadow-sm border border-gray-100"
                 >
-                  +
+                  <Plus className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* زر الإضافة للسلة */}
+            {/* زر الإضافة */}
             <button
               onClick={handleAddToCart}
               disabled={added}
-              className={`w-full py-3 rounded-lg font-bold flex items-center justify-center gap-2 transition-all ${
+              className={`w-full py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 transform active:scale-95 shadow-md ${
                 added
-                  ? "bg-green-500 text-white"
-                  : "bg-green-600 hover:bg-green-700 text-white"
+                  ? "bg-gray-800 text-white"
+                  : "bg-green-600 hover:bg-green-700 text-white hover:shadow-green-100"
               }`}
             >
               {added ? (

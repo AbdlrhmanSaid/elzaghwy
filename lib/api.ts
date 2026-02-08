@@ -1,8 +1,5 @@
-// دوال للتواصل مع الباك إند
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-
-// المنتجات
 export async function getProducts() {
   const response = await fetch(`${API_URL}/products`, {
     cache: "no-store",
