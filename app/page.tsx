@@ -27,39 +27,63 @@ export default async function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[500px] bg-gradient-to-br from-green-50 to-green-100">
+      <section className="relative h-[500px] md:h-[600px] flex items-center overflow-hidden bg-slate-900">
+        {/* صورة الهيرو */}
         <div className="absolute inset-0">
           <Image
-            src="/nutrule.jpg"
-            alt="الزغوي"
+            src="/hero-poultry.jpg" // اتأكد ان اسم الصورة صح عندك
+            alt="الزغوي للطيور"
             fill
-            className="object-cover opacity-30"
+            className="object-cover object-center opacity-70 transform -scale-x-100" // هنا عكسنا الصورة عشان تناسب مكان الكلام
             priority
           />
+          {/* Overlay تدرج سواد احترافي عشان الكلام يبان */}
+          <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/40 to-transparent" />
         </div>
-        <div className="relative container mx-auto px-4 h-full flex items-center">
+
+        <div className="relative container mx-auto px-6 z-10 text-right">
           <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-4">
-              مرحباً بك في الزغوي
+            {" "}
+            {/* خليت الكلام يروح لليمين في الجزء الفاضي من الصورة */}
+            <h1 className="text-4xl md:text-7xl font-black text-white mb-6 leading-tight">
+              أصل الطزاجة <br />
+              <span className="text-green-500">في الزغوي</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 mb-8">
-              أفضل منتجات الطيور واللحوم الطازجة بأعلى جودة وأفضل الأسعار
+            <p className="text-base md:text-xl text-gray-200 mb-10 max-w-lg leading-relaxed border-r-4 border-green-600 pr-4">
+              أجود أنواع الطيور واللحوم الطازجة من المزرعة لبيتك مباشرة.. جودة
+              تشرّفك في عزوماتك.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/products"
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors flex items-center gap-2"
+                className="group bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-2xl font-black text-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 shadow-xl"
               >
-                تصفح المنتجات
-                <ArrowLeft className="w-5 h-5" />
+                اطلب دلوقتى
+                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" />
               </Link>
+
               <Link
                 href="/offers"
-                className="bg-white hover:bg-gray-50 text-green-600 border-2 border-green-600 px-8 py-4 rounded-lg font-bold text-lg transition-colors flex items-center gap-2"
+                className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-4 rounded-2xl font-bold text-lg transition-all flex items-center gap-2"
               >
-                العروض الخاصة
+                شاهد العروض
                 <Tag className="w-5 h-5" />
               </Link>
+            </div>
+            {/* المميزات */}
+            <div className="mt-12 flex flex-wrap gap-6 text-white/90">
+              <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3 py-1 rounded-lg">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span className="text-xs md:text-sm font-bold">توصيل سريع</span>
+              </div>
+              <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3 py-1 rounded-lg">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span className="text-xs md:text-sm font-bold">ذبح إسلامي</span>
+              </div>
+              <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3 py-1 rounded-lg">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span className="text-xs md:text-sm font-bold">أعلى جودة</span>
+              </div>
             </div>
           </div>
         </div>
@@ -151,7 +175,7 @@ export default async function Home() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {featuredProducts.map((product: any) => (
                 <ProductCard key={product._id} product={product} />
               ))}

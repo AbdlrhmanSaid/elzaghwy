@@ -39,7 +39,7 @@ export default function OfferCard({ offer }: OfferCardProps) {
           alt={offer.title}
           width={500}
           height={500}
-          className="object-cover group-hover:scale-110 transition-transform duration-500"
+          className="object-cover group-hover:scale-110 transition-transform duration-500 w-full"
         />
 
         {/* شارة حالة التوفر */}
