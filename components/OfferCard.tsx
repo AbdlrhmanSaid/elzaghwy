@@ -31,15 +31,14 @@ export default function OfferCard({ offer }: OfferCardProps) {
   };
 
   return (
-    <div className="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full">
+    <div className="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col lg:flex-row h-full">
       {/* صورة العرض */}
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-64 lg:h-auto lg:w-2/5 xl:w-1/2 overflow-hidden flex-shrink-0">
         <Image
           src={offer.image}
           alt={offer.title}
-          width={500}
-          height={500}
-          className="object-cover group-hover:scale-110 transition-transform duration-500 w-full"
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-500"
         />
 
         {/* شارة حالة التوفر */}
@@ -61,7 +60,7 @@ export default function OfferCard({ offer }: OfferCardProps) {
       </div>
 
       {/* محتوى الكرت */}
-      <div className="p-5 flex flex-col flex-grow">
+      <div className="p-5 flex flex-col flex-grow lg:w-3/5 xl:w-1/2">
         <h3 className="text-xl font-black text-gray-800 mb-3 line-clamp-1">
           {offer.title}
         </h3>

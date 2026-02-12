@@ -31,10 +31,10 @@ export default async function Home() {
         {/* صورة الهيرو */}
         <div className="absolute inset-0">
           <Image
-            src="/hero-poultry.jpg" 
+            src="/hero-poultry.jpg"
             alt="الزغوي للطيور"
             fill
-            className="object-cover object-center opacity-70 transform -scale-x-100" 
+            className="object-cover object-center opacity-70 transform "
             priority
           />
           {/* Overlay تدرج سواد احترافي عشان الكلام يبان */}
